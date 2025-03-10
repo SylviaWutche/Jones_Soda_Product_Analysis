@@ -55,7 +55,7 @@ To get production back on track, we focus on **three key fixes**:
 
 1. **Preventive Maintenance:** Regular servicing to stop failures before they happen
 2. **Machine Optimization:** Fine-tuning settings to reduce unnecessary adjustments
-3. **Operator Training:** Teaching teams to adjust machines correctly without causing breakdowns  
+3. **Operator Training:** Teach operators to adjust machines correctly without causing breakdowns  
 
 ### **Expected Gains from Fixes**  
 
@@ -75,8 +75,8 @@ To get production back on track, we focus on **three key fixes**:
 
 This isn’t just about fixing machines—it’s about **getting more done in less time**  
 
-✅ **Higher Efficiency** – Up to **20% more output** from the same machines 
-✅ **Lower Costs** – Fewer breakdowns = fewer repairs
+✅ **Higher Efficiency** – Up to **20% more output** from the same machines.  
+✅ **Lower Costs** – Fewer breakdowns = fewer repairs.  
 ✅ **Less Waste** – Fewer failed batches = higher profit
 
 ---
@@ -84,8 +84,8 @@ This isn’t just about fixing machines—it’s about **getting more done in le
 ## 6. Action Plan  
 
 🔹 **Immediate Fixes (Next 30 Days)**  
-✅ Implement **preventive maintenance** for CO-600
-✅ Adjust **CO-2L and RB-600 settings** to minimize frequent stops
+✅ Implement **preventive maintenance** for CO-600.  
+✅ Adjust **CO-2L and RB-600 settings** to minimize frequent stops.  
 ✅ Train operators to **reduce unnecessary machine adjustments**
 
 🔸 **Ongoing Strategy (Quarterly Check-ins)**  
