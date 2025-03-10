@@ -1,3 +1,33 @@
+
+WITH cleaned_data AS (
+    SELECT 
+        Batch,
+        COALESCE("Factor1", 0) AS "1",
+        COALESCE("Factor2", 0) AS "2",
+        COALESCE("Factor3", 0) AS "3",
+        COALESCE("Factor4", 0) AS "4",
+        COALESCE("Factor5", 0) AS "5",
+        COALESCE("Factor6", 0) AS "6",
+        COALESCE("Factor7", 0) AS "7",
+        COALESCE("Factor8", 0) AS "8",
+        COALESCE("Factor9", 0) AS "9",
+        COALESCE("Factor10", 0) AS "10",
+        COALESCE("Factor11", 0) AS "11",
+        COALESCE("Factor12", 0) AS "12"
+    FROM line_downtime
+)
+
+SELECT 
+    Batch,
+    Factor_ID,
+    Downtime_Minutes
+FROM cleaned_data
+UNPIVOT (Downtime_Minutes FOR Factor_ID IN ("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12")
+) AS unpivoted_data;
+
+
+
+
 WITH production_min AS (
     -- Calculate total production time for each product
     SELECT 
