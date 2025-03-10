@@ -5,15 +5,15 @@
 Jones Soda has built its brand on high-quality beverages, but behind the scenes, production challenges are slowing things down. Machines break down unexpectedly, adjustments are frequent, and valuable production time is lost.  
 
 The numbers tell the story:  
-📉 **1,388 minutes of total downtime**—more than 23 hours of lost production.  
-⚠️ **1,027 minutes (74%) caused by the top recurring issues.**  
-🔧 **Frequent machine adjustments are leading to machine failures**, making the problem even worse.  
+ **1,388 minutes of total downtime**—more than 23 hours of lost production.  
+ **1,027 minutes (74%) caused by the top recurring issues.**  
+ **Frequent machine adjustments are leading to machine failures**, making the problem even worse.  
 
 The goal? **Cut downtime by 50%**, recover lost batches, and get production running smoothly again.  
 
 ---
 
-## 2. Where Are We Losing Time?  
+## 2. Where are we losing time?  
 
 Downtime isn't just a pause in production—it’s a chain reaction. The more adjustments operators make, the higher the risk of failure. We analyzed downtime data and identified **three major problem areas:**  
 
@@ -44,18 +44,18 @@ Let's break down the **worst offenders**—the products experiencing the most do
 | **DC-600** | 115 mins | 8.29% | 75% | Machine failure |
 | **OR-600** | 75 mins | 5.40% | 100% | Batch change delays |
 
-🚧 **CO-600 is the biggest bottleneck, responsible for over 35% of downtime.**  
-🛠️ **Machine adjustments are a major issue—causing failures instead of fixing them.**  
+ **CO-600 is the biggest bottleneck, responsible for over 35% of downtime**  
+ **Machine adjustments are a major issue—causing failures instead of fixing them**  
 
 ---
 
-## 4. The Plan: Reducing Downtime by 50%  
+## 4. The Plan: Reducing downtime by 50%  
 
 To get production back on track, we focus on **three key fixes**:  
 
-✅ **Preventive Maintenance:** Regular servicing to stop failures before they happen.  
-✅ **Machine Optimization:** Fine-tuning settings to reduce unnecessary adjustments.  
-✅ **Operator Training:** Teaching teams to adjust machines correctly without causing breakdowns.  
+1. **Preventive Maintenance:** Regular servicing to stop failures before they happen
+2. **Machine Optimization:** Fine-tuning settings to reduce unnecessary adjustments
+3. **Operator Training:** Teaching teams to adjust machines correctly without causing breakdowns  
 
 ### **Expected Gains from Fixes**  
 
@@ -65,33 +65,33 @@ To get production back on track, we focus on **three key fixes**:
 | **Machine Optimization** | CO-2L, RB-600 | ~50% fewer adjustments | 3 batches |
 | **Batch Change Process Improvement** | LE-600, OR-600 | Faster transitions | Reduced downtime |
 
-🚀 **Total downtime reduction: 8+ hours (~50% improvement).**  
-📦 **Recovered batches: 7 additional batches.**  
-⚡ **More stable, efficient production.**  
+ **Total downtime reduction: 8+ hours (~50% improvement)**  
+ **Recovered batches: 7 additional batches**  
+ **More stable, efficient production**  
 
 ---
 
-## 5. Business Impact: Why This Matters  
+## 5. Business Impact: Why this matters  
 
-This isn’t just about fixing machines—it’s about **getting more done in less time.**  
+This isn’t just about fixing machines—it’s about **getting more done in less time**  
 
-✅ **Higher Efficiency** – Up to **20% more output** from the same machines.  
-✅ **Lower Costs** – Fewer breakdowns = fewer repairs.  
-✅ **Less Waste** – Fewer failed batches = higher profit.  
+✅ **Higher Efficiency** – Up to **20% more output** from the same machines 
+✅ **Lower Costs** – Fewer breakdowns = fewer repairs
+✅ **Less Waste** – Fewer failed batches = higher profit
 
 ---
 
 ## 6. Action Plan  
 
 🔹 **Immediate Fixes (Next 30 Days)**  
-✅ Implement **preventive maintenance** for CO-600.  
-✅ Adjust **CO-2L and RB-600 settings** to minimize frequent stops.  
-✅ Train operators to **reduce unnecessary machine adjustments**.  
+✅ Implement **preventive maintenance** for CO-600
+✅ Adjust **CO-2L and RB-600 settings** to minimize frequent stops
+✅ Train operators to **reduce unnecessary machine adjustments**
 
 🔸 **Ongoing Strategy (Quarterly Check-ins)**  
-📊 **Monitor downtime trends** and adjust plans as needed.  
-🛠 **Service machines regularly** to prevent breakdowns.  
-🔧 **Optimize batch change processes** to keep production flowing.  
+1. **Monitor downtime trends** and adjust plans as needed 
+2. **Service machines regularly** to prevent breakdowns
+3. **Optimize batch change processes** to keep production flowing
 
 ---
 
@@ -99,17 +99,16 @@ This isn’t just about fixing machines—it’s about **getting more done in le
 
 By addressing downtime at its root cause, Jones Soda can:  
 
-✅ **Save 8+ hours of production time.**  
-✅ **Recover 7 lost batches.**  
-✅ **Reduce machine failures and improve long-term efficiency.**  
+1.  **Save 8+ hours of production time**  
+2. **Recover 7 lost batches**  
+3. **Reduce machine failures and improve long-term efficiency**  
 
-The solution is clear: **Stop unnecessary adjustments, maintain machines, and optimize processes.**  
+The solution is clear: **Stop unnecessary adjustments, maintain machines, and optimize processes**  
 
-💡 **"Efficiency isn’t just about working faster—it’s about working smarter."**  
+💡 **"Efficiency isn’t just about working faster—it’s about working smarter"**  
 
 ---
 
 ## Thank You  
 
-For any questions or future improvements, feel free to reach out.  
-Let’s make Jones Soda’s production flow **faster, smoother, and more efficient than ever!**  
+For any questions or future improvements, feel free to reach out 
