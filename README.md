@@ -5,9 +5,9 @@
 Jones Soda has built its brand on high-quality beverages, but behind the scenes, production challenges are slowing things down. Machines break down unexpectedly, adjustments are frequent, and valuable production time is lost.  
 
 The numbers tell the story:  
- **1,388 minutes of total downtime**—more than 23 hours of lost production.  
- **1,027 minutes (74%) caused by the top recurring issues.**  
- **Frequent machine adjustments are leading to machine failures**, making the problem even worse.  
+ **1,388 minutes of total downtime**—more than 23 hours of lost production 
+ **1,027 minutes (74%) caused by the top recurring issues**  
+ **Frequent machine adjustments are leading to machine failures**, making the problem even worse
 
 The goal? **Cut downtime by 50%**, recover lost batches, and get production running smoothly again.  
 
