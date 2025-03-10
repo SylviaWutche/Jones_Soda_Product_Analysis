@@ -2,38 +2,124 @@
 
 ## 1. Introduction  
 
-Jones Soda has built its brand on high-quality beverages, but behind the scenes, production challenges are slowing things down. Machines break down unexpectedly, adjustments are frequent, and valuable production time is lost.  
+At Jones Soda, every minute of production counts. However, recent data has revealed a major issue—**excessive machine downtime** is disrupting production efficiency, leading to lost batches and reduced output.  
 
-The numbers tell the story:  
- **1,388 minutes of total downtime**—more than 23 hours of lost production.  
- **1,027 minutes (74%) caused by the top recurring issues.**  
- **Frequent machine adjustments are leading to machine failures**, making the problem even worse.  
+🔴 **1,388 minutes of total downtime** recorded.  
+⚠️ **1,027 minutes (74%) caused by top recurring issues.**  
+🔧 **Machine adjustments often lead to machine failures**, making the problem worse.  
+📉 **14 batches lost due to downtime.**  
 
-The goal? **Cut downtime by 50%**, recover lost batches, and get production running smoothly again.  
-
----
-
-## 2. Where are we losing time?  
-
-Downtime isn't just a pause in production—it’s a chain reaction. The more adjustments operators make, the higher the risk of failure. We analyzed downtime data and identified **three major problem areas:**  
-
-### **Key Problem Areas & Impact**  
-
-| **Issue** | **Downtime (mins)** | **% of Total Downtime** | **Effect on Production** |
-|------------|--------------------|------------------------|--------------------|
-| **Machine Failures** (Breakdowns) | 611 mins | 44% | Sudden stoppages, lost batches |
-| **Frequent Machine Adjustments** | 416 mins | 30% | Causes instability, leading to failures |
-| **Batch Change Delays** | 277 mins | 20% | Inefficient transitions between products |
-
-🚨 **The biggest problem? Machine adjustments often cause machine failures.** Instead of fixing the issue, they make it worse!  
+**The Goal?** Reduce downtime by **50%**, recover lost batches, and improve overall production efficiency.  
 
 ---
 
-## 3. Root Cause Analysis  
+## 2. Identifying the Downtime Problem  
 
-Let's break down the **worst offenders**—the products experiencing the most downtime and why.  
+To understand the root causes of downtime, we analyzed **two key production datasets**:  
 
-### **Top Products Affected by Downtime**  
+- **line_productivity**: Tracks production start and end times.  
+- **line_downtime**: Logs machine downtime occurrences and causes.  
+
+We started by calculating the **total downtime for each product** and identifying the **main reasons behind the delays.**  
+
+---
+
+## 3. Data and SQL Queries Used  
+
+### **3.1 Dataset Cleaning & Preparation**  
+
+To make the **line_downtime** table **analysis-ready**, we **cleaned and unpivoted** the data:  
+
+```sql
+WITH cleaned_data AS (
+    SELECT 
+        Batch,
+        COALESCE("Factor1", 0) AS "1",
+        COALESCE("Factor2", 0) AS "2",
+        COALESCE("Factor3", 0) AS "3",
+        COALESCE("Factor4", 0) AS "4",
+        COALESCE("Factor5", 0) AS "5",
+        COALESCE("Factor6", 0) AS "6",
+        COALESCE("Factor7", 0) AS "7",
+        COALESCE("Factor8", 0) AS "8",
+        COALESCE("Factor9", 0) AS "9",
+        COALESCE("Factor10", 0) AS "10",
+        COALESCE("Factor11", 0) AS "11",
+        COALESCE("Factor12", 0) AS "12"
+    FROM line_downtime
+)
+
+SELECT 
+    Batch,
+    Factor_ID,
+    Downtime_Minutes
+FROM cleaned_data
+UNPIVOT (Downtime_Minutes FOR Factor_ID IN ("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12")
+) AS unpivoted_data;
+```
+
+---
+
+### **3.2 Calculating Total Downtime Per Product**  
+
+```sql
+SELECT lp.Product, SUM(ld.Downtime_Mins) AS total_downtime
+FROM Line_Productivity lp
+JOIN line_downtime1 ld ON lp.Batch = ld.Batch
+GROUP BY lp.Product
+ORDER BY total_downtime DESC;
+```
+
+✅ **CO-600 had the highest downtime (35.59%)**.  
+✅ **CO-2L and RB-600 had 100% batch failure rates due to excessive adjustments**.  
+
+---
+
+### **3.3 Major Downtime Causes Per Product**  
+
+```sql
+SELECT lp.Product, df.description, 
+       SUM(ld.Downtime_Mins) AS total_downtime,
+       RANK() OVER (PARTITION BY lp.Product ORDER BY SUM(ld.Downtime_Mins) DESC) AS downtime_cause
+FROM line_downtime1 ld
+JOIN Line_Productivity lp ON ld.Batch = lp.Batch
+LEFT JOIN Downtime_Factors df ON ld.Factor = df.Factor
+GROUP BY lp.Product, df.description;
+```
+
+🔹 **Machine adjustments** are leading to frequent breakdowns.  
+🔹 **CO-600 is the biggest bottleneck, followed by CO-2L and RB-600.**  
+
+---
+
+### **3.4 Batches Affected By Downtime**  
+
+```sql
+SELECT lp.product, 
+       COUNT(DISTINCT lp.Batch) AS affected_batches 
+FROM line_downtime1 ld
+LEFT JOIN line_productivity lp ON ld.batch = lp.batch
+WHERE Downtime_Mins > 0
+GROUP BY lp.Product;
+```
+
+---
+
+## 4. Data Analysis & Key Findings  
+
+### **4.1 Downtime Breakdown**  
+
+| **Issue** | **Total Downtime (mins)** | **% of Total Downtime** |
+|------------|--------------------|------------------------|
+| **Machine Failures** | 611 mins | 44% |
+| **Frequent Machine Adjustments** | 416 mins | 30% |
+| **Batch Change Delays** | 277 mins | 20% |
+
+🚨 **Machine adjustments are often causing machine failures**, creating a **vicious cycle** of inefficiency.  
+
+---
+
+### **4.2 Most Affected Products**  
 
 | **Product** | **Total Downtime (mins)** | **% of Total Downtime** | **Batch Failure Rate (%)** | **Primary Issue** |
 |------------|------------------------|------------------------|--------------------------|-----------------|
@@ -41,74 +127,57 @@ Let's break down the **worst offenders**—the products experiencing the most do
 | **CO-2L** | 277 mins | 19.96% | 100% | Machine adjustments |
 | **RB-600** | 258 mins | 18.58% | 100% | Machine adjustments |
 | **LE-600** | 169 mins | 12.17% | 83.33% | Batch change delays |
-| **DC-600** | 115 mins | 8.29% | 75% | Machine failure |
-| **OR-600** | 75 mins | 5.40% | 100% | Batch change delays |
 
- **CO-600 is the biggest bottleneck, responsible for over 35% of downtime**  
- **Machine adjustments are a major issue—causing failures instead of fixing them**  
+📌 **CO-600 alone accounts for over 35% of downtime, making it the biggest bottleneck.**  
 
 ---
 
-## 4. The Plan: Reducing downtime by 50%  
+### **4.3 Batches Lost & Recovery Potential**  
 
-To get production back on track, we focus on **three key fixes**:  
+| **Product** | **Batches Lost** | **Expected Batches Recovered** |
+|------------|---------------|-----------------------|
+| **CO-600** | 8 | 4 |
+| **CO-2L** | 2 | 1 |
+| **RB-600** | 4 | 2 |
+| **Total** | 14 | 7 |
 
-1. **Preventive Maintenance:** Regular servicing to stop failures before they happen
-2. **Machine Optimization:** Fine-tuning settings to reduce unnecessary adjustments
-3. **Operator Training:** Teaching teams to adjust machines correctly without causing breakdowns  
+By implementing our **recommended fixes**, we can **recover 7 batches** and **save 8 hours of production time**.  
 
-### **Expected Gains from Fixes**  
+---
 
-| **Fix** | **Products Affected** | **Expected Downtime Reduction** | **Batches Recovered** |
+## 5. Recommendations  
+
+### **5.1 Fixing Downtime Factors**  
+
+✅ **Preventive Maintenance** – Regular servicing to **reduce machine failures**.  
+✅ **Machine Optimization** – Adjusting CO-2L and RB-600 to **prevent unnecessary adjustments**.  
+✅ **Operator Training** – Teaching staff to **optimize settings correctly** to avoid failures.  
+
+### **5.2 Expected Impact of Fixes**  
+
+| **Fix** | **Products Affected** | **Expected Downtime Reduction (mins)** | **Batches Recovered** |
 |--------|-----------------|------------------------|------------------|
-| **Preventive Maintenance** | CO-600, DC-600 | ~50% fewer failures | 4 batches |
-| **Machine Optimization** | CO-2L, RB-600 | ~50% fewer adjustments | 3 batches |
+| **Preventive Maintenance** | CO-600, DC-600 | 50% fewer failures | 4 batches |
+| **Machine Optimization** | CO-2L, RB-600 | 50% fewer adjustments | 3 batches |
 | **Batch Change Process Improvement** | LE-600, OR-600 | Faster transitions | Reduced downtime |
 
- **Total downtime reduction: 8+ hours (~50% improvement)**  
- **Recovered batches: 7 additional batches**  
- **More stable, efficient production**  
+🚀 **Total downtime reduction: ~8 hours (~50%).**  
+📦 **Recovered batches: 7 additional batches.**  
 
 ---
 
-## 5. Business Impact: Why this matters  
+## 6. Conclusion  
 
-This isn’t just about fixing machines—it’s about **getting more done in less time**  
+Through SQL analysis, we identified that **machine failures and frequent adjustments account for 74% of downtime at Jones Soda**. Implementing **preventive maintenance, machine optimization, and operator training** will significantly reduce downtime, improve efficiency, and increase production output.  
 
-✅ **Higher Efficiency** – Up to **20% more output** from the same machines 
-✅ **Lower Costs** – Fewer breakdowns = fewer repairs
-✅ **Less Waste** – Fewer failed batches = higher profit
+✅ **50% downtime reduction (8+ hours saved).**  
+✅ **7 additional batches recovered.**  
+✅ **Higher efficiency, reduced costs, and improved output.**  
 
----
-
-## 6. Action Plan  
-
-🔹 **Immediate Fixes (Next 30 Days)**  
-✅ Implement **preventive maintenance** for CO-600
-✅ Adjust **CO-2L and RB-600 settings** to minimize frequent stops
-✅ Train operators to **reduce unnecessary machine adjustments**
-
-🔸 **Ongoing Strategy (Quarterly Check-ins)**  
-1. **Monitor downtime trends** and adjust plans as needed 
-2. **Service machines regularly** to prevent breakdowns
-3. **Optimize batch change processes** to keep production flowing
+💡 **"Efficiency isn’t just about working harder—it’s about working smarter."**  
 
 ---
 
-## 7. Conclusion: A More Efficient Future  
+## 7. Thank You  
 
-By addressing downtime at its root cause, Jones Soda can:  
-
-1.  **Save 8+ hours of production time**  
-2. **Recover 7 lost batches**  
-3. **Reduce machine failures and improve long-term efficiency**  
-
-The solution is clear: **Stop unnecessary adjustments, maintain machines, and optimize processes**  
-
-💡 **"Efficiency isn’t just about working faster—it’s about working smarter"**  
-
----
-
-## Thank You  
-
-For any questions or future improvements, feel free to reach out 
+For any questions or further analysis, feel free to reach out. Let’s make Jones Soda’s production flow **faster, smoother, and more efficient than ever!** 🚀  
