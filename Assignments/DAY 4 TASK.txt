@@ -1,0 +1,1 @@
+Get the exact batch(start and end time) each operator experienced his longest downtime
